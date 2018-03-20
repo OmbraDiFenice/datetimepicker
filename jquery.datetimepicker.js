@@ -543,6 +543,8 @@ var datetimepickerFactory = function ($) {
 		format:	'Y/m/d H:i',
 		formatTime:	'H:i',
 		formatDate:	'Y/m/d',
+        
+        timeLabels: {},
 
 		startDate:	false, // new Date(), '1986/12/08', '-1970/01/05','-1970/01/05',
 		step: 60,
@@ -1850,7 +1852,12 @@ var datetimepickerFactory = function ($) {
 							if (parseInt(today.getHours(), 10) === parseInt(h, 10) && parseInt(today.getMinutes(), 10) === parseInt(m, 10)) {
 								classes.push('xdsoft_today');
 							}
-							time += '<div class="xdsoft_time ' + classes.join(' ') + '" data-hour="' + h + '" data-minute="' + m + '">' + dateHelper.formatDate(now, options.formatTime) + '</div>';
+                            
+                            var now_text = dateHelper.formatDate(now, options.formatTime);
+                            if(options.timeLabels && options.timeLabels[now_text]) {
+                                now_text = options.timeLabels[now_text];
+                            }
+							time += '<div class="xdsoft_time ' + classes.join(' ') + '" data-hour="' + h + '" data-minute="' + m + '">' + now_text + '</div>';
 						};
 
 						if (!options.allowTimes || !$.isArray(options.allowTimes) || !options.allowTimes.length) {
